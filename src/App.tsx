@@ -1,13 +1,16 @@
+import React, { useState, useEffect, useCallback } from 'react';
 
-import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { User, Streak, Badge } from './types';
+import { User, Streak, Badge } from '../types';
+
 import { DB } from './services/db';
 import { StreakService } from './services/streakService';
 import { Backend } from './services/backend';
-import { StreakCard } from './components/StreakCard';
-import { BadgeGallery } from './components/BadgeGallery';
-import { HelpModal } from './components/HelpModal';
-import { ProfileModal } from './components/ProfileModal';
+
+import { StreakCard } from '../components/StreakCard';
+import { BadgeGallery } from '../components/BadgeGallery';
+import { HelpModal } from '../components/HelpModal';
+import { ProfileModal } from '../components/ProfileModal';
+
 
 type AuthStep = 'LOGIN' | 'REGISTER' | 'FORGOT_PASSWORD' | 'VERIFY_SECURITY' | 'RESET_PASSWORD';
 

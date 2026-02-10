@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Streak, StreakLog, MILESTONES } from '../types';
 import { Heatmap } from './Heatmap';
 import { Countdown } from './Countdown';
-import { DB } from '../services/db';
+import { DB } from '../src/services/db';
 
 interface StreakCardProps {
   streak: Streak;

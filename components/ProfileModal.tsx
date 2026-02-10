@@ -1,7 +1,8 @@
 
 import React, { useState } from 'react';
 import { User } from '../types';
-import { DB } from '../services/db';
+import { DB } from "../src/services/db";
+
 
 const AVATARS = [
   "https://api.dicebear.com/7.x/pixel-art/svg?seed=Felix",
