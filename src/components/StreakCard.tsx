@@ -8,13 +8,13 @@ interface StreakCardProps {
   streak: Streak;
   onComplete: (id: string, note?: string) => void;
   onRestart: (id: string) => void;
+  onClick?: (id: string) => void;
 }
 
-export const StreakCard: React.FC<StreakCardProps> = ({ streak, onComplete, onRestart }) => {
+export const StreakCard: React.FC<StreakCardProps> = ({ streak, onComplete, onRestart, onClick }) => {
   const [bounce, setBounce] = useState(false);
   const logs = DB.logs.getByStreak(streak.id);
   
-  // IST Date Logic for UI synchronization
   const getISTToday = () => {
     const d = new Date();
     const utc = d.getTime() + (d.getTimezoneOffset() * 60000);
@@ -51,21 +51,24 @@ export const StreakCard: React.FC<StreakCardProps> = ({ streak, onComplete, onRe
     }
   }, [streak.currentStreakCount]);
 
-  const handleShare = () => {
+  const handleShare = (e: React.MouseEvent) => {
+    e.stopPropagation();
     const text = `IDENTITY_SECURED: Protocol "${streak.name}" conquered after ${streak.currentStreakCount} days. 100% Discipline. System Status: ELITE. [DAYZERO]`;
     navigator.clipboard.writeText(text);
     alert('BATTLE_REPORT COPIED TO DATASTREAM.');
   };
 
   return (
-    <div className={`animate-fade-up relative border p-6 rounded-none transition-all duration-700 overflow-hidden group ${
+    <div 
+      onClick={() => onClick && onClick(streak.id)}
+      className={`animate-fade-up relative border p-6 rounded-none transition-all duration-700 overflow-hidden group cursor-pointer ${
         isBroken 
           ? 'border-red-950 bg-red-950/20 shadow-[0_0_30px_rgba(153,27,27,0.1)]' 
           : isConquered
             ? 'border-yellow-600 bg-yellow-950/20 shadow-[0_0_30px_rgba(234,179,8,0.1)]'
             : isDoneToday 
               ? 'border-emerald-800 bg-emerald-950/20 shadow-[0_0_30px_rgba(6,95,70,0.1)]' 
-              : 'border-zinc-800 bg-zinc-900 shadow-[0_0_20px_rgba(255,0,60,0.05)]'
+              : 'border-zinc-800 bg-zinc-900 shadow-[0_0_20px_rgba(255,0,60,0.05)] hover:border-zinc-500'
       }`}
     >
       <div className={`absolute -left-10 -top-10 text-[10rem] font-black text-white/[0.03] select-none italic pointer-events-none transition-transform duration-500 ${bounce ? 'scale-110' : ''}`}>
@@ -135,7 +138,7 @@ export const StreakCard: React.FC<StreakCardProps> = ({ streak, onComplete, onRe
       {!isBroken && !isDoneToday && !isConquered && (
         <div className="space-y-4 relative z-10 animate-fade-up">
           <button
-            onClick={() => onComplete(streak.id)}
+            onClick={(e) => { e.stopPropagation(); onComplete(streak.id); }}
             className="w-full bg-rose-600 text-white font-black py-5 uppercase tracking-[0.4em] hover:bg-rose-500 transition-all active:scale-95 text-xs shadow-[0_0_20px_rgba(255,0,60,0.1)]"
           >
             I SHOWED UP TODAY
@@ -149,7 +152,7 @@ export const StreakCard: React.FC<StreakCardProps> = ({ streak, onComplete, onRe
             PROTOCOL_TERMINATED
           </div>
           <button
-            onClick={() => onRestart(streak.id)}
+            onClick={(e) => { e.stopPropagation(); onRestart(streak.id); }}
             className="w-full bg-white text-black font-black py-5 uppercase tracking-[0.4em] hover:bg-rose-600 hover:text-white transition-all active:scale-95 text-xs"
           >
             RESTART_PROTOCOL

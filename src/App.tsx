@@ -11,6 +11,7 @@ import { BadgeGallery } from './components/BadgeGallery.tsx';
 import { HelpModal } from './components/HelpModal.tsx';
 import { ProfileModal } from './components/ProfileModal.tsx';
 import { UrgencyClock } from './components/UrgencyClock.tsx'; 
+import { StreakDetailView } from './components/StreakDetailView';
 
 type AuthStep = 'LOGIN' | 'REGISTER' | 'FORGOT_PASSWORD' | 'VERIFY_SECURITY' | 'RESET_PASSWORD';
 
@@ -81,6 +82,7 @@ const App: React.FC = () => {
   const [authStep, setAuthStep] = useState<AuthStep>('LOGIN');
   const [showHelp, setShowHelp] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+const [selectedStreakId, setSelectedStreakId] = useState<string | null>(null);
 
   const [formData, setFormData] = useState({
     username: '',
@@ -265,6 +267,7 @@ const App: React.FC = () => {
   };
 
   const isAdvancedUser = streaks.some(s => s.currentStreakCount >= 7);
+  const selectedStreak = selectedStreakId ? streaks.find(s => s.id === selectedStreakId) : null;
 
   if (initializing) {
     return (
@@ -498,8 +501,8 @@ const App: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           {streaks.map(s => (
-              <StreakCard key={s.id} streak={s} onComplete={completeTask} onRestart={restartStreak} />
-          ))}
+              <StreakCard key={s.id} streak={s} onComplete={completeTask} onRestart={restartStreak} onClick={setSelectedStreakId} />
+            ))}
           {streaks.length === 0 && (
             <div className="lg:col-span-3 border border-zinc-900 p-40 text-center cursor-pointer hover:bg-zinc-900/10 transition-colors animate-fade-up group" onClick={() => setShowAdd(true)}>
               <div className="text-zinc-900 text-[10rem] sm:text-[12rem] font-black mb-0 leading-none select-none group-hover:text-rose-600 transition-colors duration-700">EMPTY</div>
@@ -563,6 +566,7 @@ const App: React.FC = () => {
 
       {showHelp && <HelpModal onClose={() => setShowHelp(false)} />}
       {showProfile && user && <ProfileModal user={user} onClose={() => setShowProfile(false)} onUpdate={(u) => { setUser(u); localStorage.setItem('dayzero_current_user', JSON.stringify(u)); }} />}
+        {selectedStreak && <StreakDetailView streak={selectedStreak} onClose={() => setSelectedStreakId(null)} />}
 
       <footer className="mt-40 border-t border-zinc-900 py-32 text-center bg-black">
         <div className="mb-12 opacity-40">

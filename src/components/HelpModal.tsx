@@ -56,7 +56,6 @@ export const HelpModal: React.FC<HelpModalProps> = ({ onClose }) => {
   const [isRevealed, setIsRevealed] = useState(false);
 
   useEffect(() => {
-    // Trigger the gate opening animation after mount
     const timer = setTimeout(() => setIsRevealed(true), 100);
     return () => clearTimeout(timer);
   }, []);
@@ -72,21 +71,12 @@ export const HelpModal: React.FC<HelpModalProps> = ({ onClose }) => {
 
   return (
     <div className="fixed inset-0 z-[1000] overflow-hidden flex items-center justify-center">
-      {/* Background Dim */}
       <div className={`absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-700 ${isRevealed ? 'opacity-100' : 'opacity-0'}`} />
 
-      {/* The Gates */}
-      <div 
-        className={`absolute inset-y-0 left-0 w-1/2 bg-[#050505] border-r border-zinc-800 transition-transform duration-700 ease-in-out z-20 ${isRevealed ? '-translate-x-full' : 'translate-x-0'}`}
-      />
-      <div 
-        className={`absolute inset-y-0 right-0 w-1/2 bg-[#050505] border-l border-zinc-800 transition-transform duration-700 ease-in-out z-20 ${isRevealed ? 'translate-x-full' : 'translate-x-0'}`}
-      />
+      <div className={`absolute inset-y-0 left-0 w-1/2 bg-[#050505] border-r border-zinc-800 transition-transform duration-700 ease-in-out z-20 ${isRevealed ? '-translate-x-full' : 'translate-x-0'}`} />
+      <div className={`absolute inset-y-0 right-0 w-1/2 bg-[#050505] border-l border-zinc-800 transition-transform duration-700 ease-in-out z-20 ${isRevealed ? 'translate-x-full' : 'translate-x-0'}`} />
 
-      {/* Main Content Page */}
       <div className={`relative w-full h-full bg-[#020202] overflow-y-auto no-scrollbar transition-opacity duration-500 delay-200 ${isRevealed ? 'opacity-100' : 'opacity-0'}`}>
-        
-        {/* Navigation Header */}
         <header className="sticky top-0 z-30 bg-[#020202]/90 backdrop-blur-xl border-b border-zinc-900/50 px-6 sm:px-12 py-8 flex items-center justify-between">
           <button 
             onClick={handleClose}
@@ -117,31 +107,15 @@ export const HelpModal: React.FC<HelpModalProps> = ({ onClose }) => {
           </div>
 
           <div className="space-y-4">
-            <AccordionSection 
-              title="01_The_Logic" 
-              id="logic" 
-              isOpen={openSection === 'logic'} 
-              onToggle={toggleSection}
-              subtitle="UNDERSTANDING THE PRESSURE"
-            >
-              <p>
-                The human brain is hardwired to fear loss more than it values gain. DAYZERO exploits this <span className="text-white">Cognitive Vulnerability</span>.
-              </p>
-              <p>
-                By visualizing your life mortality and the "Streak Death Window," the system creates a high-stakes environment where missing a single day feels like an existential failure.
-              </p>
+            <AccordionSection title="01_The_Logic" id="logic" isOpen={openSection === 'logic'} onToggle={toggleSection} subtitle="UNDERSTANDING THE PRESSURE">
+              <p>The human brain is hardwired to fear loss more than it values gain. DAYZERO exploits this <span className="text-white">Cognitive Vulnerability</span>.</p>
+              <p>By visualizing your life mortality and the "Streak Death Window," the system creates a high-stakes environment where missing a single day feels like an existential failure.</p>
               <div className="p-6 bg-zinc-950 border border-zinc-900 text-[11px] font-black text-rose-500 uppercase tracking-widest leading-relaxed">
                 REMEMBER: SUCCESS IS THE PRODUCT OF REPETITIVE ACTIONS EXECUTED UNDER PRESSURE.
               </div>
             </AccordionSection>
 
-            <AccordionSection 
-              title="02_Execution_Steps" 
-              id="steps" 
-              isOpen={openSection === 'steps'} 
-              onToggle={toggleSection}
-              subtitle="STEP-BY-STEP OPERATIONS"
-            >
+            <AccordionSection title="02_Execution_Steps" id="steps" isOpen={openSection === 'steps'} onToggle={toggleSection} subtitle="STEP-BY-STEP OPERATIONS">
               <div className="space-y-8">
                 <div className="flex gap-8">
                   <span className="text-5xl font-black text-zinc-900 italic">01</span>
@@ -167,13 +141,7 @@ export const HelpModal: React.FC<HelpModalProps> = ({ onClose }) => {
               </div>
             </AccordionSection>
 
-            <AccordionSection 
-              title="03_Hard_Laws" 
-              id="laws" 
-              isOpen={openSection === 'laws'} 
-              onToggle={toggleSection}
-              subtitle="THE UNBREAKABLE CONSTRAINTS"
-            >
+            <AccordionSection title="03_Hard_Laws" id="laws" isOpen={openSection === 'laws'} onToggle={toggleSection} subtitle="THE UNBREAKABLE CONSTRAINTS">
               <ul className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <li className="p-8 border border-zinc-900 bg-zinc-950/50">
                   <span className="text-rose-600 font-black text-xs uppercase tracking-widest block mb-4">L01: IST_TIME_LOCK</span>
@@ -194,13 +162,7 @@ export const HelpModal: React.FC<HelpModalProps> = ({ onClose }) => {
               </ul>
             </AccordionSection>
 
-            <AccordionSection 
-              title="04_Rankings" 
-              id="ranks" 
-              isOpen={openSection === 'ranks'} 
-              onToggle={toggleSection}
-              subtitle="IDENTITY TAG EVOLUTION"
-            >
+            <AccordionSection title="04_Rankings" id="ranks" isOpen={openSection === 'ranks'} onToggle={toggleSection} subtitle="IDENTITY TAG EVOLUTION">
               <p className="mb-8">Your Identity Tag evolves based on the length of your unbroken chain. Breaking the chain reverts your tag to "RECRUIT".</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {MILESTONES.map(m => (
@@ -215,32 +177,25 @@ export const HelpModal: React.FC<HelpModalProps> = ({ onClose }) => {
               </div>
             </AccordionSection>
 
-            <AccordionSection 
-              title="05_Developer_Node" 
-              id="dev" 
-              isOpen={openSection === 'dev'} 
-              onToggle={toggleSection}
-              subtitle="SYSTEM ARCHITECT"
-            >
+            <AccordionSection title="05_Developer_Node" id="dev" isOpen={openSection === 'dev'} onToggle={toggleSection} subtitle="SYSTEM ARCHITECT">
               <div className="flex flex-col md:flex-row gap-12 items-center">
                 <div className="w-48 h-48 border border-zinc-800 p-2 grayscale hover:grayscale-0 transition-all duration-700">
                   <img src="https://api.dicebear.com/7.x/pixel-art/svg?seed=Navneet" alt="Dev" className="w-full h-full object-cover bg-zinc-900" />
                 </div>
-                <div className="flex-grow space-y-4">
+                <div className="flex-grow w-full space-y-4">
                   <h4 className="text-4xl font-black italic uppercase text-white tracking-tighter">Navneet Patidar</h4>
-                  
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-4">
-                    <a href="mailto:navneetpatidar422@gmail.com" className="p-4 border border-zinc-900 bg-zinc-950 flex flex-col hover:border-rose-600 transition-colors">
-                      <span className="text-[8px] font-black text-zinc-700 uppercase tracking-widest mb-1">DIRECT_UPLINK</span>
-                      <span className="text-[10px] font-black text-zinc-300">navneetpatidar422@gmail.com</span>
+                    <a href="mailto:navneetpatidar422@gmail.com" className="p-4 sm:p-6 border border-zinc-900 bg-zinc-950 flex flex-col justify-center min-h-[100px] hover:border-rose-600 transition-colors group">
+                      <span className="text-[8px] font-black text-zinc-700 uppercase tracking-widest mb-2 group-hover:text-rose-500 transition-colors">DIRECT_UPLINK</span>
+                      <span className="text-[10px] font-black text-zinc-300 break-all leading-tight">navneetpatidar422@gmail.com</span>
                     </a>
-                    <a href="https://www.linkedin.com/in/navneet-patidar/" target="_blank" className="p-4 border border-zinc-900 bg-zinc-950 flex flex-col hover:border-rose-600 transition-colors">
-                      <span className="text-[8px] font-black text-zinc-700 uppercase tracking-widest mb-1">PROFESSIONAL_NETWORK</span>
-                      <span className="text-[10px] font-black text-zinc-300">LINKEDIN/navneet-patidar</span>
+                    <a href="https://www.linkedin.com/in/navneet-patidar/" target="_blank" className="p-4 sm:p-6 border border-zinc-900 bg-zinc-950 flex flex-col justify-center min-h-[100px] hover:border-rose-600 transition-colors group">
+                      <span className="text-[8px] font-black text-zinc-700 uppercase tracking-widest mb-2 group-hover:text-rose-500 transition-colors">PROFESSIONAL_NETWORK</span>
+                      <span className="text-[10px] font-black text-zinc-300 break-all leading-tight">LINKEDIN/navneet-patidar</span>
                     </a>
-                    <a href="https://instagram.com/_navneetpatidar" target="_blank" className="p-4 border border-zinc-900 bg-zinc-950 flex flex-col hover:border-rose-600 transition-colors">
-                      <span className="text-[8px] font-black text-zinc-700 uppercase tracking-widest mb-1">SIGNAL_INTERCEPT</span>
-                      <span className="text-[10px] font-black text-zinc-300">INSTA/_navneetpatidar</span>
+                    <a href="https://instagram.com/_navneetpatidar" target="_blank" className="p-4 sm:p-6 border border-zinc-900 bg-zinc-950 flex flex-col justify-center min-h-[100px] hover:border-rose-600 transition-colors group">
+                      <span className="text-[8px] font-black text-zinc-700 uppercase tracking-widest mb-2 group-hover:text-rose-500 transition-colors">SIGNAL_INTERCEPT</span>
+                      <span className="text-[10px] font-black text-zinc-300 break-all leading-tight">INSTA/_navneetpatidar</span>
                     </a>
                   </div>
                 </div>
